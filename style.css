@@ -59,6 +59,7 @@ header h1 {
     color: var(--header-text);
     font-weight: 600;
 }
+
 header h1 a {
     color: inherit; /* Inherit color from h1 */
     text-decoration: none;
@@ -227,24 +228,34 @@ pre code {
     }
 
     .header-content {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 0 15px;
+        /* Keep elements in a row, allow wrapping if needed */
+        flex-direction: row;
+        flex-wrap: wrap; /* Allow nav to wrap below title if space is tight */
+        align-items: center; /* Vertically center items */
+        justify-content: space-between; /* Space out title and nav */
+        padding: 0 15px; /* Reduce horizontal padding */
     }
 
     header h1 {
-        font-size: 1.4em; /* Adjust title size */
-        margin-bottom: 0.5em;
+        font-size: 1.2em; /* Further reduce title size */
+        margin-bottom: 0; /* Remove bottom margin if wrapped */
+        margin-right: 1em; /* Add some space between title and nav */
     }
 
     nav ul {
-        flex-wrap: wrap;
+        flex-wrap: nowrap; /* Keep nav items in one line initially */
+        padding-top: 0; /* Remove potential top padding */
     }
 
     nav li {
-        margin-left: 0;
-        margin-right: 1em;
-        margin-bottom: 0.5em;
+        margin-left: 0.8em; /* Reduce space between nav items */
+        margin-right: 0;
+        margin-bottom: 0; /* Remove bottom margin */
+    }
+
+    nav a {
+        font-size: 0.9em; /* Reduce nav link font size */
+        padding: 0.3em 0; /* Adjust padding */
     }
 
     main {
