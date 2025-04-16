@@ -1,1 +1,0 @@
-# michaelgiba.github.io
