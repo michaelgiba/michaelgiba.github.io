@@ -9,10 +9,11 @@
     --body-bg: #fff;
     --text-color: #333;
     --heading-color: #111;
-    --link-color: #1a0dab;
-    --link-hover: #0056b3;
+    /* Updated link colors for a more professional/neutral feel */
+    --link-color: #005f73; /* Dark Teal */
+    --link-hover: #004c5a; /* Darker Teal */
     --nav-link: #333;
-    --nav-link-hover: #0056b3;
+    --nav-link-hover: #005f73; /* Dark Teal for hover/active */
     --border-color: #eaeaea;
     --subtle-text: #666;
     --code-bg: #f0f0f0;
@@ -57,6 +58,7 @@ header h1 {
 header h1 a {
     color: inherit;
     text-decoration: none;
+    font-weight: inherit; /* Inherit weight from h1 */
 }
 header h1 a:hover {
     text-decoration: underline;
@@ -81,6 +83,7 @@ nav a {
     padding: 0.5em 0;
     border-bottom: 2px solid transparent; /* Reserve space for border */
     transition: color 0.2s, border-color 0.2s;
+    font-weight: 500; /* Slightly bolder nav links */
 }
 
 nav a:hover,
@@ -117,6 +120,7 @@ article h2 {
 article h2 a {
     text-decoration: none;
     color: inherit;
+    font-weight: inherit; /* Inherit weight from h2 */
 }
 article h2 a:hover {
     text-decoration: underline;
@@ -150,13 +154,22 @@ footer p {
     margin: 0;
 }
 
+/* General link styling */
 a {
     color: var(--link-color);
     text-decoration: none;
+    font-weight: 500; /* Make general links slightly bolder */
+    transition: color 0.2s, text-decoration-color 0.2s; /* Smooth transition */
 }
 a:hover {
     color: var(--link-hover);
     text-decoration: underline;
+    text-decoration-color: var(--link-hover); /* Ensure underline matches hover color */
+}
+
+/* Ensure links within headings inherit heading weight */
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+    font-weight: inherit;
 }
 
 strong, b {
