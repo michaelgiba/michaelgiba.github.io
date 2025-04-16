@@ -4,20 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, maximum-scale=5">
 
-    <title>michael giba</title> <!-- Simple Title -->
-    <link rel="canonical" href="YOUR_BLOG_URL_HERE"> <!-- Add your blog URL -->
+    <title>michael giba's blog</title> <!-- Simple Title -->
+    <link rel="canonical" href="michaelgiba.com"> <!-- Add your blog URL -->
     <meta name="title" content="michael giba">
-    <meta name="description" content="A simple blog about simple things."> <!-- Add description -->
+    <meta name="description" content="Tech and programming"> <!-- Add description -->
     <meta property="og:site_name" content="michael giba">
     <meta property="og:title" content="michael giba">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="YOUR_BLOG_URL_HERE"> <!-- Add your blog URL -->
-    <meta property="og:description" content="A simple blog about simple things.">
+    <meta property="og:url" content="michaelgiba.com"> <!-- Add your blog URL -->
+    <meta property="og:description" content="Tech and programming">
     <meta property="twitter:card" content="summary">
-    <meta property="twitter:url" content="YOUR_BLOG_URL_HERE"> <!-- Add your blog URL -->
+    <meta property="twitter:url" content="michaelgiba.com"> <!-- Add your blog URL -->
     <meta property="twitter:title" content="michael giba">
-    <meta property="twitter:description" content="A simple blog about simple things.">
-    <link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E📄%3C/text%3E%3C/svg%3E">
+    <meta property="twitter:description" content="Tech and programming">
+    <link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E💻%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="style.css">
     <style>
         .video-container {
@@ -42,7 +42,7 @@
             /* object-fit: contain; */
         }
         /* Optional: Adjust aspect ratio for specific videos if needed */
-        /* .video-container.portrait { padding-top: 177.78%; /* 9:16 */ } */
+        /* .video-container.portrait { padding-top: 177.78%; /* 9:16  */
 
     </style>
 </head>
@@ -97,7 +97,7 @@
             <p>This phase incorporates several passes of different LLMs to produce a structured “script”. This includes breaking the show into segments, determining dialog for the character, dictating body motion, timing for sound effects and more.</p>
 
             <h4>Humor LLM</h4>
-            <p>General purpose LLMs (GPT4o, Llama3.1) often produced uninteresting or robotic commentary on the articles, clever prompting helped but didn’t fully eliminate the issue. To remedy this I tested several ablated models from throughout the community on HuggingFace. Most of these were Gemma or Llama3.1-based and ranged in quality I ended up settling on a 4-bit quantized version of “Gemma2-9b Abliterated” which I found funnier. No fine tuning was performed and the model ran locally.</p>
+            <p>General purpose LLMs (GPT4o, Llama3.1) often produced uninteresting or robotic commentary on the articles, clever prompting helped but didn’t fully eliminate the issue. To remedy this I tested several <a href="https://huggingface.co/blog/mlabonne/abliteration"> ablated </a> models from throughout the community on HuggingFace. Most of these were Gemma or Llama3.1-based and ranged in quality I ended up settling on a 4-bit quantized version of <a href="https://huggingface.co/IlyaGusev/gemma-2-9b-it-abliterated">Gemma2-9b Abliterated”</a> which I found funnier. No fine tuning was performed and the model ran locally.</p>
 
             <h4>General LLM</h4>
             <p>Once the rough dialog was produced, a general purpose LLM deemed the “screen writer” would create a JSON format structured script that included character motion descriptions, sound effect durations and more. Free GPT4o and Llama on Groq were the primary models used here.</p>
@@ -113,16 +113,16 @@
             <img src="static/late_now_generative_show/tracks.png" alt="Audio Tracks Example" style="width:100%; max-width: 600px; display: block; margin: 1.5em auto;">
 
             <h4>Facial Movements</h4>
-            <p>Given the generated speech and text, we need to generate a set of corresponding facial positions for the speaker. 3D character facial positions can be represented as a set of blendshape coefficients. We can follow a two-stage process to generate these from speech audio:</p>
+            <p>Given the generated speech and text, we need to generate a set of corresponding facial positions for the speaker. 3D character facial positions can be represented as a set of <a href="https://cascadeur.com/help/category/259#:~:text=Blend%20Shapes%20are%20used%20for,adding%20things%20like%20muscle%20motions.">blendshape coefficients.</a>  We can follow a two-stage process to generate these from speech audio:</p>
 
             <img src="static/late_now_generative_show/landmarks.jpg" alt="Facial Landmarks" style="width:100%; max-width: 600px; display: block; margin: 1.5em auto;">
 
             <ol>
-                <li>For speech-to-facial-landmark generation I spliced out the first half of a video-to-video model, AniPortrait. (Pictured in blue below.)</li>
+                <li>For speech-to-facial-landmark generation I spliced out the first half of a video-to-video model, <a href="https://github.com/Zejun-Yang/AniPortrait">AniPortrait.</a> (Pictured in blue below.)</li>
 
                 <img src="static/late_now_generative_show/aniportrait.webp" alt="AniPortrait Model Diagram" style="width:100%; max-width: 700px; display: block; margin: 1.5em auto;">
 
-                <li>Next these landmarks are passed through a Google Mediapipe model, Blendshapes V2, to predict corresponding coefficients in an ARKit-compatible format.</li>
+                <li>Next these landmarks are passed through a Google Mediapipe model, <a href="https://storage.googleapis.com/mediapipe-assets/Model%20Card%20Blendshape%20V2.pdf">Blendshapes V2</a>, to predict corresponding coefficients in an ARKit-compatible format.</li>
             </ol>
 
             <h4>Body Motion</h4>
@@ -135,7 +135,7 @@
                 </video>
             </div>
 
-            <p>There are quality off-the-shelf models for text-to-motion which have emerged recently. I chose to use MoMask which generated smooth text conditioned full body animations with raw joint positions or IK constraints.</p>
+            <p>There are quality off-the-shelf models for text-to-motion which have emerged recently. I chose to use <a href="https://github.com/EricGuo5513/momask-codes">MoMask</a> which generated smooth text conditioned full body animations with raw joint positions or IK constraints.</p>
 
             <h3>Rendering</h3>
             <p>To render the animations from packaging we need a mesh for which we can map them to. For this I used a mesh created in Blender, rigged using AutoRig Pro with 52 ARKit-compatible shape keys for the face.</p>
@@ -214,7 +214,7 @@ Walter: We can generate short form content this way
             <ul>
                 <li>Optimize end-to-end generation time to seconds using multiple machines</li>
                 <li>Deploy the system to generate short funny videos for any user provided article via a web service</li>
-                <li>Launch a never ending show like the surreal “Nothing Forever”</li>
+                <li>Launch a never ending show like the surreal <a href="https://www.twitch.tv/watchmeforever">“Nothing Forever”</a></li>
                 <li>Extend to use 3D generation models for new characters or even scenes</li>
                 <li>Pass each frame through a img2img model to restyle or make it look realistic</li>
             </ul>
