@@ -37,7 +37,7 @@ body {
 
 header {
     background-color: var(--header-bg);
-    padding: 1em 0;
+    padding: 0.5em 0; /* Reduced vertical padding */
     border-bottom: 1px solid #333; /* Darker border for contrast with dark header */
     width: 100%;
 }
@@ -54,10 +54,10 @@ header {
 
 header h1 {
     margin: 0;
-    font-size: 1.5em;
+    font-size: 1.2em; /* Reduced font size */
     /* Use light text color for dark header */
     color: var(--header-text);
-    font-weight: 600;
+    font-weight: 400; /* Reduced font weight (normal) */
 }
 
 header h1 a {
@@ -151,12 +151,41 @@ footer {
     color: var(--subtle-text);
     font-family: var(--font-sans);
     border-top: 1px solid var(--border-color);
-    text-align: center;
+    text-align: center; /* Ensure text is centered */
     font-size: 0.9em;
 }
 
 footer p {
     margin: 0;
+}
+
+/* Optional: Style the footer link specifically if needed */
+footer a {
+    color: var(--subtle-text); /* Match surrounding text color */
+    font-weight: normal; /* Override default bold link style */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Allows vertical alignment */
+    vertical-align: middle; /* Align icons with text */
+    line-height: 1; /* Prevent extra space */
+}
+footer a:hover {
+    color: var(--text-color); /* Darken on hover */
+    /* text-decoration: underline; Removed underline for icon links */
+}
+
+/* Style for footer SVG icons */
+footer a svg.footer-icon {
+    width: 1em; /* Size relative to font size */
+    height: 1em; /* Size relative to font size */
+    fill: currentColor; /* Inherit color from parent 'a' tag */
+    vertical-align: middle; /* Align icon nicely */
+    margin-bottom: 0.1em; /* Fine-tune vertical alignment */
+    transition: fill 0.2s; /* Smooth color transition */
+}
+
+/* Hover effect specifically for the SVG fill */
+footer a:hover svg.footer-icon {
+    fill: var(--text-color); /* Change fill color on hover */
 }
 
 /* General link styling - Muted color, standard weight, underline on hover */
@@ -237,7 +266,7 @@ pre code {
     }
 
     header h1 {
-        font-size: 1.2em; /* Further reduce title size */
+        font-size: 1.1em; /* Adjusted mobile font size */
         margin-bottom: 0; /* Remove bottom margin if wrapped */
         margin-right: 1em; /* Add some space between title and nav */
     }
@@ -245,6 +274,8 @@ pre code {
     nav ul {
         flex-wrap: nowrap; /* Keep nav items in one line initially */
         padding-top: 0; /* Remove potential top padding */
+        justify-content: flex-end; /* Align nav items to the right */
+        flex-grow: 1; /* Allow nav to take remaining space */
     }
 
     nav li {
