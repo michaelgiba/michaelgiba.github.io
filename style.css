@@ -5,18 +5,18 @@
     --font-scale: 18px;
     --line-height: 1.7;
     --content-width: 740px;
-    /* Dark header background */
-    --header-bg: #4A4A4A; /* Dark Gray */
+    /* Header background matches body */
+    --header-bg: var(--body-bg); /* Changed from #4A4A4A */
     --body-bg: #fff;
     --text-color: #333;
     --heading-color: #111;
     /* Muted, sophisticated link colors */
     --link-color: #367588; /* Muted Teal/Blue */
     --link-hover: #2A5A6A; /* Darker Muted Teal/Blue */
-    /* Light text for dark header */
-    --header-text: #F5F5F5; /* Light Gray / Off-White */
-    --nav-link: var(--header-text); /* Use header text color for nav links */
-    --nav-link-hover: #FFFFFF; /* White for nav hover */
+    /* Text colors for light header */
+    --header-text: var(--text-color); /* Changed from #F5F5F5 */
+    --nav-link: var(--link-color); /* Changed from var(--header-text) */
+    --nav-link-hover: var(--link-hover); /* Changed from #FFFFFF */
     --border-color: #eaeaea;
     --subtle-text: #666;
     --code-bg: #f0f0f0;
@@ -37,8 +37,8 @@ body {
 
 header {
     background-color: var(--header-bg);
-    padding: 1em 0;
-    border-bottom: 1px solid #333; /* Darker border for contrast with dark header */
+    padding: 0.5em 0; /* Reduced vertical padding */
+    border-bottom: 1px solid var(--border-color); /* Changed from #333 */
     width: 100%;
 }
 
@@ -54,20 +54,26 @@ header {
 
 header h1 {
     margin: 0;
-    font-size: 1.5em;
-    /* Use light text color for dark header */
-    color: var(--header-text);
-    font-weight: 600;
+    font-size: 1.2em; /* Reduced font size */
+    color: var(--header-text); /* Uses updated variable */
+    font-weight: 400; /* Reduced font weight (normal) */
 }
 
 header h1 a {
-    color: inherit; /* Inherit color from h1 */
+    /* Apply text clipping effect */
+    background: linear-gradient(45deg, var(--link-color), var(--link-hover)); /* Example gradient */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; /* Make the text color transparent */
     text-decoration: none;
     font-weight: inherit; /* Inherit weight from h1 */
+    /* Add transition for potential hover effects */
+    transition: filter 0.3s ease;
 }
 header h1 a:hover {
-    text-decoration: underline;
-    color: var(--nav-link-hover); /* Use white hover color */
+    /* Example hover effect: slightly change gradient or add brightness */
+    filter: brightness(1.2);
+    text-decoration: none; /* Keep underline off for clipped text */
 }
 
 nav ul {
@@ -83,7 +89,7 @@ nav li {
 
 nav a {
     text-decoration: none;
-    color: var(--nav-link); /* Use updated light nav link color */
+    color: var(--nav-link); /* Use updated nav link color */
     font-size: 1em;
     padding: 0.5em 0;
     border-bottom: 2px solid transparent; /* Reserve space for border */
@@ -93,8 +99,8 @@ nav a {
 
 nav a:hover,
 nav a.active {
-    color: var(--nav-link-hover); /* Use updated light hover color */
-    border-bottom-color: var(--nav-link-hover); /* Use updated light hover color */
+    color: var(--nav-link-hover); /* Use updated hover color */
+    border-bottom-color: var(--nav-link-hover); /* Use updated hover color */
 }
 
 main {
@@ -151,7 +157,7 @@ footer {
     color: var(--subtle-text);
     font-family: var(--font-sans);
     border-top: 1px solid var(--border-color);
-    text-align: center;
+    text-align: center; /* Ensure text is centered */
     font-size: 0.9em;
 }
 
@@ -159,14 +165,44 @@ footer p {
     margin: 0;
 }
 
+/* Optional: Style the footer link specifically if needed */
+footer a {
+    color: var(--subtle-text); /* Match surrounding text color */
+    font-weight: normal; /* Override default bold link style */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Allows vertical alignment */
+    vertical-align: middle; /* Align icons with text */
+    line-height: 1; /* Prevent extra space */
+}
+footer a:hover {
+    color: var(--text-color); /* Darken on hover */
+    /* text-decoration: underline; Removed underline for icon links */
+}
+
+/* Style for footer SVG icons */
+footer a svg.footer-icon {
+    width: 1em; /* Size relative to font size */
+    height: 1em; /* Size relative to font size */
+    fill: currentColor; /* Inherit color from parent 'a' tag */
+    vertical-align: middle; /* Align icon nicely */
+    margin-bottom: 0.1em; /* Fine-tune vertical alignment */
+    transition: fill 0.2s; /* Smooth color transition */
+}
+
+/* Hover effect specifically for the SVG fill */
+footer a:hover svg.footer-icon {
+    fill: var(--text-color); /* Change fill color on hover */
+}
+
 /* General link styling - Muted color, standard weight, underline on hover */
-a {
+/* Ensure this doesn't conflict with header h1 a */
+a:not(header h1 a) { /* Apply general styles to links NOT in header h1 */
     color: var(--link-color);
     text-decoration: none; /* Underline on hover */
     font-weight: 700; /* Make links bold */
     transition: color 0.2s, text-decoration-color 0.2s; /* Smooth transition */
 }
-a:hover {
+a:not(header h1 a):hover {
     color: var(--link-hover);
     text-decoration: underline;
     text-decoration-color: var(--link-hover); /* Ensure underline matches hover color */
@@ -237,7 +273,7 @@ pre code {
     }
 
     header h1 {
-        font-size: 1.2em; /* Further reduce title size */
+        font-size: 1.1em; /* Adjusted mobile font size */
         margin-bottom: 0; /* Remove bottom margin if wrapped */
         margin-right: 1em; /* Add some space between title and nav */
     }
@@ -245,6 +281,8 @@ pre code {
     nav ul {
         flex-wrap: nowrap; /* Keep nav items in one line initially */
         padding-top: 0; /* Remove potential top padding */
+        justify-content: flex-end; /* Align nav items to the right */
+        flex-grow: 1; /* Allow nav to take remaining space */
     }
 
     nav li {
