@@ -24,8 +24,9 @@
         .post-entry {
             display: flex;
             align-items: center; /* Align items vertically centered */
-            margin-bottom: 0.5rem; /* Reduced space between entries */
+            margin-bottom: 0.9rem; /* Reduced space between entries */
             padding: 0;
+            padding-bottom: 10px;
         }
         .post-thumbnail {
             width: 50px; /* Adjust size as needed */
@@ -80,6 +81,18 @@
     <main>
         <article class="post-entry">
             <div class="post-date">
+                <time datetime="2024-04-25">Apr 24, 2025</time> <!-- Set Correct Date -->
+            </div>
+            <img src="static/grammar-based/thumbnail.png" alt="Grammar-Based Sampling" class="post-thumbnail">
+
+            <div class="post-details">
+                <h2><a href="grammar-based/index.html">Grammar-Based Sampling</a></h2>
+                <p class="post-subtitle">An interactive overview of basic sampling and grammar-based sampling</p>
+            </div>
+        </article>
+
+        <article class="post-entry">
+            <div class="post-date">
                 <time datetime="2024-10-13">Oct 13, 2024</time> <!-- Set Correct Date -->
             </div>
             <img src="static/late_now_generative_show/animation.webp" alt="Thumbnail for Late Now with Walter Spanks" class="post-thumbnail">
@@ -88,9 +101,7 @@
                 <h2><a href="late-now-generative-show.html">Late Now with Walter Spanks</a></h2>
                 <p class="post-subtitle">An experimental generative comedy</p>
             </div>
-
         </article>
-
     </main>
 
     <footer>
