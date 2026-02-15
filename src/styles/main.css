@@ -395,3 +395,143 @@ pre code {
         /* Further reduce code size on mobile */
     }
 }
+
+/* *** Consolidated Post List Styles *** */
+.post-entry {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.9rem;
+    padding: 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    /* Separator between list items */
+}
+
+.post-entry:last-child {
+    border-bottom: none;
+}
+
+.post-thumbnail {
+    width: 65px;
+    /* Slightly larger for better visibility */
+    height: 65px;
+    object-fit: cover;
+    margin-right: 1.2rem;
+    flex-shrink: 0;
+    border-radius: 4px;
+    /* Soften edges */
+    background-color: var(--border-color);
+    /* Placeholder bg */
+}
+
+.post-date {
+    flex: 0 0 85px;
+    padding-right: 1rem;
+    font-size: 0.85em;
+    color: var(--subtle-text);
+    white-space: nowrap;
+    font-family: var(--font-mono);
+    /* Tech feel for dates */
+}
+
+.post-details {
+    flex: 1;
+    padding: 0;
+}
+
+.post-details h2 {
+    margin: 0 0 0.3rem 0;
+    padding: 0;
+    font-size: 1.3em;
+    /* Increased size */
+    line-height: 1.2;
+    font-family: var(--font-sans);
+    /* Clean sans for titles in list */
+    font-weight: 600;
+}
+
+.post-details .post-subtitle {
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+    color: var(--subtle-text);
+    line-height: 1.4;
+}
+
+/* *** Consolidated Visualization Styles *** */
+.visualization-container {
+    margin: 2em 0;
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    border-radius: 6px;
+    background-color: #fafafa;
+    /* Very light gray bg */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    /* Subtle shadow */
+}
+
+.visualization-container h2 {
+    margin-top: 0;
+    font-size: 1.4em;
+}
+
+.viz-content {
+    min-height: 100px;
+    /* Ensure space for spinner */
+    position: relative;
+    display: flex;
+    /* Center content */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Centered SVG in visualizations */
+.viz-content svg {
+    display: block;
+    margin: auto;
+    max-width: 100%;
+    /* Responsive */
+    height: auto;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: var(--link-color);
+    /* Use theme color */
+    animation: spin 1s ease infinite;
+    position: absolute;
+    /* Centering handled by flex or absolute positioning */
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* *** Article Typography Overrides *** */
+/* Consistent tech feel for headings inside articles */
+article h1,
+article h2,
+article h3,
+article h4,
+article h5,
+article h6 {
+    font-family: var(--font-mono);
+    color: var(--heading-color);
+}
+
+/* Better code block spacing */
+pre {
+    padding: 1.2em;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background-color: var(--code-bg);
+}
