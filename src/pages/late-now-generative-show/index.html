@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, maximum-scale=5">
+
+    <title>michael giba's blog</title> <!-- Simple Title -->
+    <link rel="canonical" href="michaelgiba.com"> <!-- Add your blog URL -->
+    <meta name="title" content="michael giba">
+    <meta name="description"
+        content="Exploring the creation of automated late-night show segments using generative AI models for scriptwriting, audio synthesis, facial animation, and body motion.">
+    <!-- Specific post description -->
+    <meta property="og:site_name" content="michael giba's blog">
+    <meta property="og:title" content="Late Now with Walter Spanks: A Generative AI Show"> <!-- Specific post title -->
+    <meta property="og:type" content="article"> <!-- Changed type to article -->
+    <meta property="og:url" content="https://michaelgiba.github.io/late-now-generative-show.html">
+    <!-- Specific URL for this page -->
+    <meta property="og:description"
+        content="Exploring the creation of automated late-night show segments using generative AI models for scriptwriting, audio synthesis, facial animation, and body motion.">
+    <!-- Specific post description -->
+    <meta property="og:image" content="https://michaelgiba.github.io/static/late_now_generative_show/concept.jpg">
+    <!-- Absolute URL to a relevant image -->
+    <meta property="article:published_time" content="2024-10-13T00:00:00Z"> <!-- Add publication time -->
+    <meta property="twitter:card" content="summary_large_image">
+    <!-- Use summary_large_image if you have a good image -->
+    <meta property="twitter:url" content="https://michaelgiba.github.io/late-now-generative-show.html">
+    <!-- Specific URL for this page -->
+    <meta property="twitter:title" content="Late Now with Walter Spanks: A Generative AI Show">
+    <!-- Specific post title -->
+    <meta property="twitter:description"
+        content="Exploring the creation of automated late-night show segments using generative AI models for scriptwriting, audio synthesis, facial animation, and body motion.">
+    <!-- Specific post description -->
+    <meta property="twitter:image" content="https://michaelgiba.github.io/static/late_now_generative_show/concept.jpg">
+    <!-- Absolute URL to the same image -->
+
+    <link rel="shortcut icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E💻%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <style>
+        .video-container {
+            position: relative;
+            width: 100%;
+            /* Default to 16:9 aspect ratio */
+            padding-top: 56.25%;
+            overflow: hidden;
+            margin: 1.5em 0;
+            background-color: #000;
+            /* Optional: background for letterboxing if using contain */
+        }
+
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Use 'cover' to fill the container, cropping if needed */
+            object-fit: cover;
+            /* Use 'contain' to show the whole video, potentially with letterboxing */
+            /* object-fit: contain; */
+        }
+
+        /* Optional: Adjust aspect ratio for specific videos if needed */
+        /* .video-container.portrait { padding-top: 177.78%; /* 9:16  */
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1><a href="/">michael giba</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Posts</a></li>
+                    <!-- Removed About link -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <article>
+            <h2>Late Now with Walter Spanks</h2>
+            <time datetime="2024-10-13">Oct 13, 2024</time> <!-- Set Correct Date -->
+
+            <p>Many classic late night shows and segments like “Weekend Update” from Saturday Night Live follow a
+                similar structure where they look at a collection of news articles and comment on them, making jokes and
+                adding commentary. Given this repeatable structure and recent advancements in generative models, can we
+                create shows like this on the fly?</p>
+
+            <div class="video-container">
+                <video controls>
+                    <source src="/static/late_now_generative_show/web_versions/input-demo-reel_web.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <p>Accompanying code is on Github: <a
+                    href="https://github.com/michaelgiba/late_now">https://github.com/michaelgiba/late_now</a></p>
+
+
+            <h3>The Show Concept</h3>
+
+            <img src="/static/late_now_generative_show/concept.jpg" alt="Walter Spanks Show Concept"
+                style="width:100%; max-width: 600px; display: block; margin: 1.5em auto;">
+
+            <p>To begin we need a show name and host. After iterating on concepts with LLMs + Midjourney I picked the
+                show name “Late Now with Walter Spanks”. The show’s seasoned host covers news topics and cracks jokes. I
+                generated a short character bio and a variety of assets.</p>
+
+            <h3>Rough Process</h3>
+            <p>I split the show generation into a few separate phases:</p>
+            <ul>
+                <li><strong>“Planning”:</strong> A news article link is provided as input and we process it to produce a
+                    structured script</li>
+                <li><strong>“Packaging”:</strong> We create a variety of assets to support the script (images, audio,
+                    facial movements, body motion)</li>
+                <li><strong>“Rendering”:</strong> Using the assets and the script we create the video</li>
+            </ul>
+
+            <h3>Planning</h3>
+            <img src="/static/late_now_generative_show/planning.png" alt="Planning Phase Diagram"
+                style="width:100%; max-width: 700px; display: block; margin: 1.5em auto;">
+
+            <p>This phase incorporates several passes of different LLMs to produce a structured “script”. This includes
+                breaking the show into segments, determining dialog for the character, dictating body motion, timing for
+                sound effects and more.</p>
+
+            <h4>Humor LLM</h4>
+            <p>General purpose LLMs (GPT4o, Llama3.1) often produced uninteresting or robotic commentary on the
+                articles, clever prompting helped but didn’t fully eliminate the issue. To remedy this I tested several
+                <a href="https://huggingface.co/blog/mlabonne/abliteration"> ablated </a> models from throughout the
+                community on HuggingFace. Most of these were Gemma or Llama3.1-based and ranged in quality I ended up
+                settling on a 4-bit quantized version of <a
+                    href="https://huggingface.co/IlyaGusev/gemma-2-9b-it-abliterated">Gemma2-9b Abliterated</a> which I
+                found funnier. No fine tuning was performed and the model ran locally.</p>
+
+            <h4>General LLM</h4>
+            <p>Once the rough dialog was produced, a general purpose LLM deemed the “screen writer” would create a JSON
+                format structured script that included character motion descriptions, sound effect durations and more.
+                Free GPT4o and Llama on Groq were the primary models used here.</p>
+
+            <h3>Packaging</h3>
+            <img src="/static/late_now_generative_show/flow.png" alt="Packaging Phase Diagram"
+                style="width:100%; max-width: 700px; display: block; margin: 1.5em auto;">
+
+            <p>Once a script is created, resources need to be generated for rendering the show:</p>
+
+            <h4>Sound</h4>
+            <p>For each item in the structured script we need to generate corresponding audio and stitch them together
+                to make the show’s audio track. The script writing LLM produces two types of queues for sound: dialog or
+                sound effects. For dialog I used Suno’s “bark small” model for its small local footprint and solid
+                quality. Sound effects were static WAV files for applause, laughter, gasps and more. Dialog and sound
+                effects were stitched together through simple waveform manipulation in numpy</p>
+
+            <img src="/static/late_now_generative_show/tracks.png" alt="Audio Tracks Example"
+                style="width:100%; max-width: 600px; display: block; margin: 1.5em auto;">
+
+            <h4>Facial Movements</h4>
+            <p>Given the generated speech and text, we need to generate a set of corresponding facial positions for the
+                speaker. 3D character facial positions can be represented as a set of <a
+                    href="https://cascadeur.com/help/category/259#:~:text=Blend%20Shapes%20are%20used%20for,adding%20things%20like%20muscle%20motions.">blendshape
+                    coefficients.</a> We can follow a two-stage process to generate these from speech audio:</p>
+
+            <img src="/static/late_now_generative_show/landmarks.jpg" alt="Facial Landmarks"
+                style="width:100%; max-width: 600px; display: block; margin: 1.5em auto;">
+
+            <ol>
+                <li>For speech-to-facial-landmark generation I spliced out the first half of a video-to-video model, <a
+                        href="https://github.com/Zejun-Yang/AniPortrait">AniPortrait.</a> (Pictured in blue below.)</li>
+
+                <img src="/static/late_now_generative_show/aniportrait.webp" alt="AniPortrait Model Diagram"
+                    style="width:100%; max-width: 700px; display: block; margin: 1.5em auto;">
+
+                <li>Next these landmarks are passed through a Google Mediapipe model, <a
+                        href="https://storage.googleapis.com/mediapipe-assets/Model%20Card%20Blendshape%20V2.pdf">Blendshapes
+                        V2</a>, to predict corresponding coefficients in an ARKit-compatible format.</li>
+            </ol>
+
+            <h4>Body Motion</h4>
+            <p>Since body motion is generally independent from speech it was handled differently than facial movement.
+                The goal was given a text prompt describing an action, generate a set of motion animation files which
+                could be mapped to a mesh’s skeleton.</p>
+
+            <div class="video-container">
+                <video controls>
+                    <source src="/static/late_now_generative_show/web_versions/gpt_motion_jumping_web.mp4"
+                        type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <p>There are quality off-the-shelf models for text-to-motion which have emerged recently. I chose to use <a
+                    href="https://github.com/EricGuo5513/momask-codes">MoMask</a> which generated smooth text
+                conditioned full body animations with raw joint positions or IK constraints.</p>
+
+            <h3>Rendering</h3>
+            <p>To render the animations from packaging we need a mesh for which we can map them to. For this I used a
+                mesh created in Blender, rigged using AutoRig Pro with 52 ARKit-compatible shape keys for the face.</p>
+
+            <img src="/static/late_now_generative_show/rendering.webp" alt="Blender Rendering Setup"
+                style="width:100%; max-width: 700px; display: block; margin: 1.5em auto;">
+
+            <p>I leveraged Blender’s python API (<code>bpy</code>) to control the rendering of the scene frame-by-frame.
+                Code performs the mapping of blendshape coefficients to the mesh shape key values (what Blender calls
+                blendshapes) and connects the generated animations to the mesh skeleton. The system then advances the
+                animations in lockstep and renders a sequence of files.</p>
+
+            <img src="/static/late_now_generative_show/animation.webp" alt="Animation Mapping in Blender"
+                style="width:100%; max-width: 700px; display: block; margin: 1.5em auto;">
+
+            <p>The rendered frames then get composited together with other scene content such as subtitles and the TV
+                panel to generate a full broadcast.</p>
+
+            <h3>Article Example</h3>
+            <p>When passing an article as input we can get short shows of configurable length. The following example was
+                set to ~100 words and provided a link to this Quanta article <a
+                    href="https://www.quantamagazine.org/even-a-single-bacterial-cell-can-sense-the-seasons-changing-20240716/">Even
+                    a Single Bacterial Cell Can Sense the Seasons Changing</a></p>
+
+            <div class="video-container">
+                <video controls>
+                    <source src="/static/late_now_generative_show/web_versions/sample_show_bacteria1-v2_web.mp4"
+                        type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <p>or a very meta segment based on this very article:</p>
+
+            <div class="video-container">
+                <video controls>
+                    <source src="/static/late_now_generative_show/web_versions/sample_show_meta-v2_web.mp4"
+                        type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <h3>Plain Text Example</h3>
+            <p>The staged process of planning allows for the option to bypass article extraction and for raw scripts to
+                be provided as input. For example:</p>
+            <pre><code>*Shows an image of a smiling emoji*
+
+(Applause)
+Walter: Hey there! (Waving)
+(Oooh)
+Walter: Signing off (Salutes)
+(Awww)
+</code></pre>
+
+            <div class="video-container">
+                <video controls>
+                    <source src="/static/late_now_generative_show/web_versions/sample_waving_web.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <pre><code>*Shows an image of a popcorn bucket*
+
+(Applause)
+Walter: Listen up folks... [chuckle]
+(Oooh)
+Walter: We can generate short form content this way
+(Applause)</code></pre>
+
+            <div class="video-container">
+                <video controls>
+                    <source src="/static/late_now_generative_show/web_versions/sample_show_popcorn_web.mp4"
+                        type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <h3>Generations</h3>
+            <p>There are a myriad of options that can be set which impact generations. Some of the notable ones
+                influencing quality and speed include:</p>
+            <ul>
+                <li>Show script length</li>
+                <li>Blender Rendering Engine Options (Cycles vs. EEVEEE, samples)</li>
+                <li>Number of iterations for image generation</li>
+            </ul>
+            <p>A 100-200 word show takes roughly 5-10 minutes to generate end-to-end on a single machine with ~12GB
+                VRAM. The system accepts either free form text or news article links as input.</p>
+
+            <h3>Future Ideas</h3>
+            <p>This was a side project to explore a new approach for generating content with a focus on controllability,
+                but I think it could be extended in a couple of interesting ways. A couple of potential extensions
+                someone could try if they are interested are:</p>
+            <ul>
+                <li>Optimize end-to-end generation time to seconds using multiple machines</li>
+                <li>Deploy the system to generate short funny videos for any user provided article via a web service
+                </li>
+                <li>Launch a never ending show like the surreal <a href="https://www.twitch.tv/watchmeforever">“Nothing
+                        Forever”</a></li>
+                <li>Extend to use 3D generation models for new characters or even scenes</li>
+                <li>Pass each frame through a img2img model to restyle or make it look realistic</li>
+            </ul>
+            <p>Feel free to reach out at <a href="mailto:michaelgiba@gmail.com">michaelgiba@gmail.com</a> if you have
+                any questions/ideas.</p>
+
+        </article>
+    </main>
+
+    <footer>
+        <p>
+            &copy; 2024 Michael Giba &nbsp;&bull;&nbsp;
+            <a href="https://www.linkedin.com/in/michael-giba-42720a80/" target="_blank" rel="noopener noreferrer"
+                title="LinkedIn Profile">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="footer-icon">
+                    <path
+                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                </svg>
+            </a>
+            &nbsp; <!-- Add a small space -->
+            <a href="https://github.com/michaelgiba" target="_blank" rel="noopener noreferrer" title="GitHub Profile">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="footer-icon">
+                    <path
+                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                </svg>
+            </a>
+        </p>
+    </footer>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2DKNJ3B59H"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-2DKNJ3B59H');
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+{
+  "name": "michaelgiba.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelgiba/michaelgiba.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michaelgiba/michaelgiba.github.io/issues"
+  },
+  "homepage": "https://github.com/michaelgiba/michaelgiba.github.io#readme",
+  "devDependencies": {
+    "@types/d3": "^7.4.3",
+    "@types/node": "^25.2.3",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
+  },
+  "dependencies": {
+    "d3": "^7.9.0",
+    "d3-scale-chromatic": "^3.1.0",
+    "npyjs": "^1.1.0"
+  }
+}

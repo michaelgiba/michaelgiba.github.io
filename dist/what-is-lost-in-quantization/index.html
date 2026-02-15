@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, maximum-scale=5">
+
+  <!-- *** Updated Title and Meta Tags for the specific post *** -->
+  <title>Oh Snap! What is Lost When We Quantize? - michael giba's blog</title>
+  <link rel="canonical" href="michaelgiba.com/quantization-error"> <!-- *** Update with actual post URL *** -->
+  <meta name="title" content="Oh Snap! What is Lost When We Quantize? - michael giba">
+  <meta name="description"
+    content="Since there is no free lunch, it is natural to ask what does it cost to quantize something? What does the error look like or sound like? Or in the case of an LLM, how is quantization applied and how does it impact model outputs? The intention of this article is to provide intution into what this error is at a high level and observe how it specifically manifests for an example quantized LLM.">
+  <!-- *** Update description *** -->
+  <meta property="og:site_name" content="michael giba">
+  <meta property="og:title" content="Oh Snap! What is Lost When We Quantize? - michael giba">
+  <meta property="og:type" content="article"> <!-- *** Changed to article *** -->
+  <meta property="og:url" content="michaelgiba.com/quantization-error"> <!-- *** Update with actual post URL *** -->
+  <meta property="og:description"
+    content="Since there is no free lunch, it is natural to ask what does it cost to quantize something? What does the error look like or sound like? Or in the case of an LLM, how is quantization applied and how does it impact model outputs? The intention of this article is to provide intution into what this error is at a high level and observe how it specifically manifests for an example quantized LLM.">
+  <meta property="twitter:card" content="summary_large_image"> <!-- Can use summary_large_image if applicable -->
+  <meta property="twitter:url" content="michaelgiba.com/quantization-error">
+  <!-- *** Update with actual post URL *** -->
+  <meta property="twitter:title" content="Oh Snap! What is Lost When We Quantize? - michael giba">
+  <meta property="twitter:description"
+    content="Since there is no free lunch, it is natural to ask what does it cost to quantize something? What does the error look like or sound like? Or in the case of an LLM, how is quantization applied and how does it impact model outputs? The intention of this article is to provide intution into what this error is at a high level and observe how it specifically manifests for an example quantized LLM.">
+  <!-- *** End Updated Meta Tags *** -->
+  <!-- KaTeX for rendering math formulas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css"
+    integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"
+    integrity="sha384-cMkvdD8LoxVzGF/RPUKAcvmm49FQ0oxwDF3BGKtDXcEc+T1b2N+teh/OJfpU0jr6"
+    crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"
+    integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh"
+    crossorigin="anonymous"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMathInElement(document.body, {
+        // customised options
+        // • auto-render specific keys, e.g.:
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false },
+          { left: '\\[', right: '\\]', display: true }
+        ],
+        // • rendering keys, e.g.:
+        throwOnError: false
+      });
+    });
+  </script>
+  <!-- End KaTeX includes -->
+  <link rel="shortcut icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%3C💻%3C/text%3E%3C/svg%3E">
+  <style>
+    /* Styles from the blog template */
+    .post-entry {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      padding: 0;
+    }
+
+    .post-thumbnail {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+
+    .post-date {
+      flex: 0 0 80px;
+      padding-right: 1rem;
+      font-size: 0.85em;
+      color: #666;
+      white-space: nowrap;
+    }
+
+    .post-details {
+      flex: 1;
+      padding: 0;
+    }
+
+    .post-details h2 {
+      margin: 0 0 0.1rem 0;
+      padding: 0;
+      font-size: 1.1em;
+      line-height: 1.2;
+    }
+
+    .post-details h2 a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .post-details .post-subtitle {
+      margin: 0;
+      padding: 0;
+      font-size: 0.9em;
+      color: #555;
+      line-height: 1.3;
+    }
+
+    /* *** Styles Copied from the Visualization HTML *** */
+    /* Basic styling */
+    /* body { font-family: sans-serif; margin: 20px; } /* Base body style likely handled by style.css */
+    .visualization-container {
+      margin-bottom: 40px;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    .visualization-container h2 {
+      margin-top: 0;
+    }
+
+    /* Style for the actual viz content area */
+    .viz-content {
+      min-height: 50px;
+      /* Ensure container has some height */
+      position: relative;
+      /* Needed for absolute positioning of spinner */
+    }
+
+    svg {
+      display: block;
+      margin: auto;
+    }
+
+    /* Consider if this conflicts with footer icons */
+    /* Basic Spinner Style */
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border-left-color: #09f;
+      /* Or use a blog theme color */
+      animation: spin 1s ease infinite;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -18px;
+      /* Half of height */
+      margin-left: -18px;
+      /* Half of width */
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* *** End Copied Styles *** */
+
+    /* Add any additional specific styles for the post page layout */
+    main article {
+      max-width: 1800px;
+      /* Example constraint */
+    }
+
+    main article h1 {
+      /* Style the main title of the post */
+      margin-bottom: 30px;
+    }
+
+    /* *** Added: Monospace font for headings *** */
+    main h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: Consolas, Monaco, 'Courier New', monospace;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/quantizationError-CCVW-Nk9.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/transform-DMmrTYh2.js">
+  <link rel="stylesheet" crossorigin href="/assets/quantizationError-CFjH3qA5.css">
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <h1><a href="/">michael giba</a></h1>
+      <nav>
+        <ul>
+          <li><a href="https://michaelgiba.github.io/" class="active">Posts</a></li>
+          <!-- Adjust 'active' class if needed -->
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <nav>
+    <!-- Navigation links can be added here -->
+  </nav>
+  <main>
+    <!-- Content will be dynamically injected or added here -->
+  </main>
+  <footer>
+    <p>
+      &copy; 2025 Michael Giba &nbsp;&bull;&nbsp;
+      <a href="https://www.linkedin.com/in/michael-giba-42720a80/" target="_blank" rel="noopener noreferrer"
+        title="LinkedIn Profile">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="footer-icon" width="16" height="16">
+          <path
+            d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+        </svg>
+      </a>
+      &nbsp; <!-- Add a small space -->
+      <a href="https://github.com/michaelgiba" target="_blank" rel="noopener noreferrer" title="GitHub Profile">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="footer-icon" width="16" height="16">
+          <path
+            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+        </svg>
+      </a>
+    </p>
+  </footer>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2DKNJ3B59H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-2DKNJ3B59H');
+  </script>
+</body>
+
+</html>
