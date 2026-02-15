@@ -69,9 +69,6 @@ export class QuantizationVisualization {
     this.setupSVG();
     this.redrawVisualization();
     this.createCallout();
-    console.log(
-      'Quantization Type Interactive Visualization Initialized with modular architecture.',
-    );
   }
 
   private setupDOM(): void {
@@ -202,7 +199,7 @@ export class QuantizationVisualization {
       .append<HTMLParagraphElement>('p')
       .html(
         '<p style="font-family: \'Georgia\', serif;"> The following is an interactive visualization of these three different quantization strategies for some example weights.  ' +
-          'You can see how these are quants are represented in code in <code>llama.cpp</code><a href="https://github.com/ggml-org/llama.cpp/blob/master/ggml/src/ggml-common.h#L167">here if you are curious.</a> ',
+        'You can see how these quants are represented in code in <code>llama.cpp</code><a href="https://github.com/ggml-org/llama.cpp/blob/master/ggml/src/ggml-common.h#L167">here if you are curious.</a> ',
       );
 
     const controlsDiv = d3

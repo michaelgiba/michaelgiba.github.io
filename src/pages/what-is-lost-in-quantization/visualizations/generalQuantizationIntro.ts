@@ -111,9 +111,9 @@ export function initGeneralQuantizationIntro(): void {
     .attr('id', introTextId)
     .html(
       'Quantization is the process of taking values in a higher-resolution datatype and mapping them to a lower-resolution one. ' +
-        'For example, mapping 32-bit floating points to a set of 4 bit integers. <br/><br/>' +
-        'This general mechanism is used ubiquitously in signal processing and computers: it underlies many things - ' +
-        'audio codecs, computer graphics and more recently has been used to <b>shrink the weights of neural networks</b> to reduce their size.',
+      'For example, mapping 32-bit floating points to a set of 4 bit integers. <br/><br/>' +
+      'This general mechanism is used ubiquitously in signal processing and computers: it underlies many things - ' +
+      'audio codecs, computer graphics and more recently has been used to <b>shrink the weights of neural networks</b> to reduce their size.',
     );
 
   vizSection
@@ -121,22 +121,22 @@ export function initGeneralQuantizationIntro(): void {
     .attr('class', 'llm-question')
     .html(
       '<b>Why Quantize Models?</b><br/> ' +
-        'Quantization has become more popular in recent years, enabling inference for models with small footprints which maintain much of their capability. ' +
-        'For example one open source quantized version of Gemma3 27B with Quantization Aware Training (QAT) outperforms gpt3.5 on certain benchmarks ' +
-        'while still being <20GB on disk.' +
-        '<sup><a href="https://huggingface.co/bartowski/google_gemma-3-27b-it-qat-GGUF" target="_blank">[1]</a></sup>' +
-        '<sup><a href="https://www.reddit.com/r/LocalLLaMA/comments/1k6nrl1/i_benchmarked_the_gemma_3_27b_qat_models/" target="_blank">[2]</a></sup>' +
-        '<sup><a href="https://www.vals.ai/benchmarks/gpqa-03-11-2025" target="_blank">[3]</a></sup>.',
+      'Quantization has become more popular in recent years, enabling inference for models with small footprints which maintain much of their capability. ' +
+      'For example one open source quantized version of Gemma3 27B with Quantization Aware Training (QAT) outperforms gpt3.5 on certain benchmarks ' +
+      'while still being <20GB on disk.' +
+      '<sup><a href="https://huggingface.co/bartowski/google_gemma-3-27b-it-qat-GGUF" target="_blank">[1]</a></sup>' +
+      '<sup><a href="https://www.reddit.com/r/LocalLLaMA/comments/1k6nrl1/i_benchmarked_the_gemma_3_27b_qat_models/" target="_blank">[2]</a></sup>' +
+      '<sup><a href="https://www.vals.ai/benchmarks/gpqa-03-11-2025" target="_blank">[3]</a></sup>.',
     );
 
   vizSection
     .append('p')
     .html(
       'Since there is no free lunch, it is natural to ask what does it cost to quantize something? What does the error look like or sound like? ' +
-        'Or in the case of an LLM, how is quantization applied and how does it impact model outputs? ' +
-        'The intention of this article is to provide intution into what this error is at a high level ' +
-        'and observe how it specifically manifests for an example quantized LLM. ' +
-        '<br/>',
+      'Or in the case of an LLM, how is quantization applied and how does it impact model outputs? ' +
+      'The intention of this article is to provide intuition into what this error is at a high level ' +
+      'and observe how it specifically manifests for an example quantized LLM. ' +
+      '<br/>',
     );
 
   const designWidth = 800;
@@ -515,5 +515,4 @@ export function initGeneralQuantizationIntro(): void {
   // Start animation
   animate();
 
-  console.log('General Quantization Intro Visualization Initialized');
 }

@@ -509,7 +509,7 @@ export function initWikiLogprobComparison(): void {
         <h3>Data Collection</h3>
         <p>For demonstration purposes I implemented a variation of this metric, basically we:</p>
         <ol>
-            <li>Get a target dataset (<a href="https://huggingface.co/datasets/Salesforce/wikitext/" target="blank_">wikitext</a>)</li>
+            <li>Get a target dataset (<a href="https://huggingface.co/datasets/Salesforce/wikitext/" target="_blank">wikitext</a>)</li>
             <li>Slide a window over the dataset to capture input context tokens <code>x_0, ..., x_i-1</code></li>
             <li>Run inference for the quantized and unquantized models for the same input context</li> 
             <li>Get each model's log-probability for the next true token in the dataset, <code>x_i</code></li>
@@ -598,8 +598,8 @@ function createTopDifferencesSection(
     .style('margin-bottom', '1em')
     .text(
       'Navigate through the sliding windows with the largest differences in log-probability predictions. ' +
-        'An interesting observation is that tokens involving numbers, especially that are part of years seemed to ' +
-        'have some of the largest changes in certainty.',
+      'An interesting observation is that tokens involving numbers, especially that are part of years seemed to ' +
+      'have some of the largest changes in certainty.',
     );
 
   // Navigation controls

@@ -273,9 +273,9 @@ async function createAudioQuantizationRow(
   audioColumn
     .append('p')
     .html(
-      'WAV files can store sound at different <a href="https://en.wikipedia.org/wiki/Audio_bit_depth#:~:text=The%20resolution%20indicates%20the%20number,%2Dtwo%20floating%2Dpoint%20formats." target="blank_">"bit depths" </a> which quantizes the input sound signal. This introduces noise. ' +
-        'The quantization "error" is the difference of this signal from the original. ' +
-        'Select a bit depth to see and hear the effect on this <b>AI-generated song about quantization.</b>',
+      'WAV files can store sound at different <a href="https://en.wikipedia.org/wiki/Audio_bit_depth#:~:text=The%20resolution%20indicates%20the%20number,%2Dtwo%20floating%2Dpoint%20formats." target="_blank">"bit depths" </a> which quantizes the input sound signal. This introduces noise. ' +
+      'The quantization "error" is the difference of this signal from the original. ' +
+      'Select a bit depth to see and hear the effect on this <b>AI-generated song about quantization.</b>',
     );
 
   const audioQualities = [
@@ -348,14 +348,14 @@ async function createAudioQuantizationRow(
       error8Data.length,
       buffer16.sampleRate,
     );
-    error8Buffer.copyToChannel(error8Data, 0);
+    error8Buffer.copyToChannel(error8Data as any, 0);
 
     const error4Buffer = audioContext.createBuffer(
       1,
       error4Data.length,
       buffer16.sampleRate,
     );
-    error4Buffer.copyToChannel(error4Data, 0);
+    error4Buffer.copyToChannel(error4Data as any, 0);
 
     type AudioDataKey = '16-bit' | '8-bit' | '4-bit';
     type ErrorDataKey = '8-bit-error' | '4-bit-error';
@@ -520,9 +520,9 @@ function createImageQuantizationRow(
   imageColumn
     .append('p')
     .html(
-      'You may have heard of <a href="https://en.wikipedia.org/wiki/8-bit_color" target="blank_">8-bit color</a> palletes from old Atari video games. ' +
-        'If you want to display a high-resolution image in 8-bit color, you will need to quantize colors to one of 256 possible values. ' +
-        'At even smaller levels, you can see the error as sharp artifacts in the original image. ',
+      'You may have heard of <a href="https://en.wikipedia.org/wiki/8-bit_color" target="_blank">8-bit color</a> palettes from old Atari video games. ' +
+      'If you want to display a high-resolution image in 8-bit color, you will need to quantize colors to one of 256 possible values. ' +
+      'At even smaller levels, you can see the error as sharp artifacts in the original image. ',
     );
 
   const imageBits = [
@@ -647,5 +647,4 @@ export function initQuantizationErrorIntro(): void {
   createAudioQuantizationRow(contentRow, audioContext);
   createImageQuantizationRow(contentRow);
 
-  console.log('Quantization Error Introduction Visualization Initialized');
 }
