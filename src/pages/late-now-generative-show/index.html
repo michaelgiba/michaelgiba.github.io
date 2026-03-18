@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, maximum-scale=5">
 
     <title>michael giba's blog</title> <!-- Simple Title -->
-    <link rel="canonical" href="michaelgiba.com"> <!-- Add your blog URL -->
+    <link rel="canonical" href="https://michaelgiba.com/late-now-generative-show/"> <!-- Add your blog URL -->
     <meta name="title" content="michael giba">
     <meta name="description"
         content="Exploring the creation of automated late-night show segments using generative AI models for scriptwriting, audio synthesis, facial animation, and body motion.">
@@ -14,28 +14,30 @@
     <meta property="og:site_name" content="michael giba's blog">
     <meta property="og:title" content="Late Now with Walter Spanks: A Generative AI Show"> <!-- Specific post title -->
     <meta property="og:type" content="article"> <!-- Changed type to article -->
-    <meta property="og:url" content="https://michaelgiba.github.io/late-now-generative-show.html">
+    <meta property="og:url" content="https://michaelgiba.com/late-now-generative-show/">
     <!-- Specific URL for this page -->
     <meta property="og:description"
         content="Exploring the creation of automated late-night show segments using generative AI models for scriptwriting, audio synthesis, facial animation, and body motion.">
     <!-- Specific post description -->
-    <meta property="og:image" content="https://michaelgiba.github.io/static/late_now_generative_show/concept.jpg">
+    <meta property="og:image" content="https://michaelgiba.com/static/late_now_generative_show/concept.jpg">
     <!-- Absolute URL to a relevant image -->
     <meta property="article:published_time" content="2024-10-13T00:00:00Z"> <!-- Add publication time -->
     <meta property="twitter:card" content="summary_large_image">
     <!-- Use summary_large_image if you have a good image -->
-    <meta property="twitter:url" content="https://michaelgiba.github.io/late-now-generative-show.html">
+    <meta property="twitter:url" content="https://michaelgiba.com/late-now-generative-show/">
     <!-- Specific URL for this page -->
     <meta property="twitter:title" content="Late Now with Walter Spanks: A Generative AI Show">
     <!-- Specific post title -->
     <meta property="twitter:description"
         content="Exploring the creation of automated late-night show segments using generative AI models for scriptwriting, audio synthesis, facial animation, and body motion.">
     <!-- Specific post description -->
-    <meta property="twitter:image" content="https://michaelgiba.github.io/static/late_now_generative_show/concept.jpg">
+    <meta property="twitter:image" content="https://michaelgiba.com/static/late_now_generative_show/concept.jpg">
     <!-- Absolute URL to the same image -->
 
     <link rel="shortcut icon" type="image/svg+xml"
         href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E💻%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://www.google-analytics.com">
     <link rel="stylesheet" href="../../styles/main.css">
     <style>
         .video-container {
@@ -91,7 +93,7 @@
                 create shows like this on the fly?</p>
 
             <div class="video-container">
-                <video controls>
+                <video controls preload="none">
                     <source src="/static/late_now_generative_show/web_versions/input-demo-reel_web.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -103,7 +105,7 @@
 
             <h3>The Show Concept</h3>
 
-            <img src="/static/late_now_generative_show/concept.jpg" alt="Walter Spanks Show Concept"
+            <img loading="lazy" src="/static/late_now_generative_show/concept.jpg" alt="Walter Spanks Show Concept"
                 style="width:100%; max-width: 600px; display: block; margin: 1.5em auto;">
 
             <p>To begin we need a show name and host. After iterating on concepts with LLMs + Midjourney I picked the
@@ -121,7 +123,7 @@
             </ul>
 
             <h3>Planning</h3>
-            <img src="/static/late_now_generative_show/planning.png" alt="Planning Phase Diagram"
+            <img loading="lazy" src="/static/late_now_generative_show/planning.png" alt="Planning Phase Diagram"
                 style="width:100%; max-width: 700px; display: block; margin: 1.5em auto;">
 
             <p>This phase incorporates several passes of different LLMs to produce a structured “script”. This includes
@@ -143,7 +145,7 @@
                 Free GPT4o and Llama on Groq were the primary models used here.</p>
 
             <h3>Packaging</h3>
-            <img src="/static/late_now_generative_show/flow.png" alt="Packaging Phase Diagram"
+            <img loading="lazy" src="/static/late_now_generative_show/flow.png" alt="Packaging Phase Diagram"
                 style="width:100%; max-width: 700px; display: block; margin: 1.5em auto;">
 
             <p>Once a script is created, resources need to be generated for rendering the show:</p>
@@ -155,7 +157,7 @@
                 quality. Sound effects were static WAV files for applause, laughter, gasps and more. Dialog and sound
                 effects were stitched together through simple waveform manipulation in numpy</p>
 
-            <img src="/static/late_now_generative_show/tracks.png" alt="Audio Tracks Example"
+            <img loading="lazy" src="/static/late_now_generative_show/tracks.png" alt="Audio Tracks Example"
                 style="width:100%; max-width: 600px; display: block; margin: 1.5em auto;">
 
             <h4>Facial Movements</h4>
@@ -164,14 +166,14 @@
                     href="https://cascadeur.com/help/category/259#:~:text=Blend%20Shapes%20are%20used%20for,adding%20things%20like%20muscle%20motions.">blendshape
                     coefficients.</a> We can follow a two-stage process to generate these from speech audio:</p>
 
-            <img src="/static/late_now_generative_show/landmarks.jpg" alt="Facial Landmarks"
+            <img loading="lazy" src="/static/late_now_generative_show/landmarks.jpg" alt="Facial Landmarks"
                 style="width:100%; max-width: 600px; display: block; margin: 1.5em auto;">
 
             <ol>
                 <li>For speech-to-facial-landmark generation I spliced out the first half of a video-to-video model, <a
                         href="https://github.com/Zejun-Yang/AniPortrait">AniPortrait.</a> (Pictured in blue below.)</li>
 
-                <img src="/static/late_now_generative_show/aniportrait.webp" alt="AniPortrait Model Diagram"
+                <img loading="lazy" src="/static/late_now_generative_show/aniportrait.webp" alt="AniPortrait Model Diagram"
                     style="width:100%; max-width: 700px; display: block; margin: 1.5em auto;">
 
                 <li>Next these landmarks are passed through a Google Mediapipe model, <a
@@ -185,7 +187,7 @@
                 could be mapped to a mesh’s skeleton.</p>
 
             <div class="video-container">
-                <video controls>
+                <video controls preload="none">
                     <source src="/static/late_now_generative_show/web_versions/gpt_motion_jumping_web.mp4"
                         type="video/mp4">
                     Your browser does not support the video tag.
@@ -200,7 +202,7 @@
             <p>To render the animations from packaging we need a mesh for which we can map them to. For this I used a
                 mesh created in Blender, rigged using AutoRig Pro with 52 ARKit-compatible shape keys for the face.</p>
 
-            <img src="/static/late_now_generative_show/rendering.webp" alt="Blender Rendering Setup"
+            <img loading="lazy" src="/static/late_now_generative_show/rendering.webp" alt="Blender Rendering Setup"
                 style="width:100%; max-width: 700px; display: block; margin: 1.5em auto;">
 
             <p>I leveraged Blender’s python API (<code>bpy</code>) to control the rendering of the scene frame-by-frame.
@@ -208,7 +210,7 @@
                 blendshapes) and connects the generated animations to the mesh skeleton. The system then advances the
                 animations in lockstep and renders a sequence of files.</p>
 
-            <img src="/static/late_now_generative_show/animation.webp" alt="Animation Mapping in Blender"
+            <img loading="lazy" src="/static/late_now_generative_show/animation.webp" alt="Animation Mapping in Blender"
                 style="width:100%; max-width: 700px; display: block; margin: 1.5em auto;">
 
             <p>The rendered frames then get composited together with other scene content such as subtitles and the TV
@@ -221,7 +223,7 @@
                     a Single Bacterial Cell Can Sense the Seasons Changing</a></p>
 
             <div class="video-container">
-                <video controls>
+                <video controls preload="none">
                     <source src="/static/late_now_generative_show/web_versions/sample_show_bacteria1-v2_web.mp4"
                         type="video/mp4">
                     Your browser does not support the video tag.
@@ -231,7 +233,7 @@
             <p>or a very meta segment based on this very article:</p>
 
             <div class="video-container">
-                <video controls>
+                <video controls preload="none">
                     <source src="/static/late_now_generative_show/web_versions/sample_show_meta-v2_web.mp4"
                         type="video/mp4">
                     Your browser does not support the video tag.
@@ -251,7 +253,7 @@ Walter: Signing off (Salutes)
 </code></pre>
 
             <div class="video-container">
-                <video controls>
+                <video controls preload="none">
                     <source src="/static/late_now_generative_show/web_versions/sample_waving_web.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -266,7 +268,7 @@ Walter: We can generate short form content this way
 (Applause)</code></pre>
 
             <div class="video-container">
-                <video controls>
+                <video controls preload="none">
                     <source src="/static/late_now_generative_show/web_versions/sample_show_popcorn_web.mp4"
                         type="video/mp4">
                     Your browser does not support the video tag.
