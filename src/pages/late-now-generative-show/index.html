@@ -152,7 +152,7 @@
 
             <h4>Sound</h4>
             <p>For each item in the structured script we need to generate corresponding audio and stitch them together
-                to make the show’s audio track. The script writing LLM produces two types of queues for sound: dialog or
+                to make the show’s audio track. The script writing LLM produces two types of cues for sound: dialog or
                 sound effects. For dialog I used Suno’s “bark small” model for its small local footprint and solid
                 quality. Sound effects were static WAV files for applause, laughter, gasps and more. Dialog and sound
                 effects were stitched together through simple waveform manipulation in numpy</p>
@@ -280,7 +280,7 @@ Walter: We can generate short form content this way
                 influencing quality and speed include:</p>
             <ul>
                 <li>Show script length</li>
-                <li>Blender Rendering Engine Options (Cycles vs. EEVEEE, samples)</li>
+                <li>Blender Rendering Engine Options (Cycles vs. EEVEE, samples)</li>
                 <li>Number of iterations for image generation</li>
             </ul>
             <p>A 100-200 word show takes roughly 5-10 minutes to generate end-to-end on a single machine with ~12GB

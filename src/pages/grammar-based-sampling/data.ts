@@ -148,12 +148,12 @@ export async function loadSamplingAnalysisData(
   const loader = new npyjs(); // Instantiate loader once for efficiency
 
   for (let step = 0; step < num_steps; step++) {
-    const fileNaeme = `${id}-step${step}.npy`;
+    const fileName = `${id}-step${step}.npy`;
     // Check if the file is in the invalid list
-    if (INVALID_FILES.includes(fileNaeme)) {
+    if (INVALID_FILES.includes(fileName)) {
       break;
     }
-    const npyPath = `${basePath}/${id}/${fileNaeme}`;
+    const npyPath = `${basePath}/${id}/${fileName}`;
     try {
       const res = await fetch(npyPath);
       if (!res.ok) {

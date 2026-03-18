@@ -135,7 +135,7 @@
     <article>
       <h1>Grammar-Based Sampling Quick Summary</h1>
 
-      <p class="post-date" style="text-align: left; margin-top: -20px; margin-bottom: 20px; color: #666;">April 25, 2025
+      <p class="post-date" style="text-align: left; margin-top: -20px; margin-bottom: 20px; color: #666;">April 24, 2025
       </p>
       <div
         style="border-left: 4px solid #FB8C00; padding-left: 15px; margin-left: 20px; background-color: #fff5e6; margin-top: 1em; margin-bottom: 1em;">
@@ -146,7 +146,7 @@
       </div>
 
 
-      <p>During inference, LLMs generate sequences of "tokens"
+      <p>During inference, LLMs generate sequences of "tokens,"
         the primitives that these systems string together to produce sentences.
         First these transformer-based machines produce raw scores or "logits" over the set of possible tokens and then
         "sampling" decides which token to choose given those scores. </p>
@@ -217,7 +217,7 @@
       <p>
         The simplest approach possible here is just to take the token with the largest logit at each timestep and this
         is a perfectly
-        viable option. Below you can see through a visualization what this looks for real completions of sample
+        viable option. Below you can see through a visualization what this looks like for real completions of sample
         phrases thanks to <a href="https://huggingface.co/microsoft/phi-4">phi-4</a>
       </p>
 
@@ -266,7 +266,7 @@
       <div
         style="border-left: 4px solid #FB8C00; padding-left: 15px; margin-left: 20px; background-color: #fff5e6; margin-top: 1em; margin-bottom: 1em;">
         <p>
-          Notice that the model is sometimes not very sure about any particular token option (i.e the single-timestep
+          Notice that the model is sometimes not very sure about any particular token option (i.e., the single-timestep
           probability has a high <a href="https://en.wikipedia.org/wiki/Entropy_(information_theory)" target="_blank"
             rel="noopener noreferrer">entropy</a>)
           This can result in some unlikely samplings which lead the model on vastly different future trajectories.
@@ -458,7 +458,7 @@ string : "\"" letter+ "\""</code></pre>
       <li>
         You might be wondering, since we know our grammar and at each generation timestep we have a fixed number of
         options, can't we just choose from those options and find the corresponding logit with the highest value?
-        Unfortunately no
+        Unfortunately, no,
         because of how tokenization works. Since the model thinks in tokens, the distribution it has learned internally
         may not vibe well with our character-by-character trajectories. Concretely, if we force a generation like
         <code>{</code> followed by
